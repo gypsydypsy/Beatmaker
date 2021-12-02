@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+:root {
+  --fullHeight : 100vh;
+}
+
 body {
   margin: 0;
   background-color: black;
@@ -12,7 +16,14 @@ body {
   justify-content: center;
   align-items : center;
   font-family: 'montserrat';
-  min-height: 100vh;
+  height: (var(--fullHeight, 1vh) * 100);
+  width: 100vw;
+  overflow: hidden;
+}
+
+#warning
+{ 
+  display:none; 
 }
 
 /* Header */
@@ -116,6 +127,7 @@ header .controls {
   overflow: scroll;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+  padding-bottom: 20px;
 }
 
 .beat-machine::-webkit-scrollbar {
@@ -124,7 +136,6 @@ header .controls {
 
 .row {
   height: 4.8vw;
-  min-height: 46px;
   display: flex; 
   flex-shrink: 0;
 }
@@ -134,10 +145,8 @@ header .controls {
   border-radius: 5px;
   width: 12vw;
   max-width: 12vw;
-  min-width: 110px;
   margin: max(0.4vw, 3px);
   height: 4vw;
-  min-height: 40px;
   display: flex;
   justify-content: space-between;
   padding: 0.8vw;
@@ -148,7 +157,7 @@ header .controls {
 .sound-info {
   display: flex;
   align-items: center;
-  width: 100%;
+  max-width: calc(100% - 0.5rem - 12px);
   font-size: max(1.3vw, 0.8rem);
 }
 
@@ -164,7 +173,6 @@ header .controls {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 60%;
 }
 
 .mute-btn {
@@ -181,7 +189,7 @@ header .controls {
 }
 
 .mute-btn svg {
-  font-size: max(0.7vw, 0.5rem);
+  font-size: 0.5rem;
 }
 
 .grid {
@@ -192,34 +200,25 @@ header .controls {
 .square {
   flex-shrink: 0;
   width: 4vw;
-  min-width: 40px; 
   height: 4vw;
-  min-height: 40px;
   margin : max(0.4vw, 3px);
   border-radius: 5px;
   cursor: pointer;
 }
 
-@media screen and (max-width: 890px){
-  body {
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-}
-
 
 /* Forcing landscape mode on mobile devices */
 
-@media only screen and (orientation:portrait){
+@media only screen and (orientation:portrait){  
+
   #warning 
   { 
-    display:block; 
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 500;
+    max-height: calc(var(--fullHeight, 1vh) * 100); 
     background-color: black;
     color: white;
     display: flex;
@@ -232,16 +231,10 @@ header .controls {
     width: 30vw;
     margin-bottom: 10px;
   }
-   #warning p {
-     width: 50%;
-     text-align: center;
-   }
-
-}
-
-@media only screen and (orientation:landscape){
-  #warning
-  { 
-    display:none; 
+   
+  #warning p {
+    width: 50%;
+    text-align: center;
   }
+
 }
